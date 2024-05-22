@@ -2,33 +2,50 @@ package com.example.mvvmproject.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
+import com.example.mvvmproject.R
 
-// Set of Material typography styles to start with
+val dangrek = FontFamily(Font(R.font.dangrek, FontWeight.Normal))
+val dangrekBold = FontFamily(Font(R.font.dangrek, FontWeight.Bold))
+
 val Typography = Typography(
     bodyLarge = TextStyle(
-        fontFamily = FontFamily.Default,
+        fontFamily = dangrek,
         fontWeight = FontWeight.Normal,
         fontSize = 16.sp,
-        lineHeight = 24.sp,
-        letterSpacing = 0.5.sp
-    )
-    /* Other default text styles to override
-    titleLarge = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Normal,
-        fontSize = 22.sp,
-        lineHeight = 28.sp,
-        letterSpacing = 0.sp
+        lineHeight = 20.sp,
+        letterSpacing = 0.2.sp,
+        textAlign = TextAlign.Left
     ),
-    labelSmall = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Medium,
-        fontSize = 11.sp,
+    bodyMedium = TextStyle(
+        fontFamily = dangrek,
+        fontWeight = FontWeight.Normal,
+        fontSize = 14.sp,
+        lineHeight = 18.sp,
+        letterSpacing = 0.175.sp
+    ),
+    bodySmall = TextStyle(
+        fontFamily = dangrek,
+        fontWeight = FontWeight.Normal,
+        fontSize = 12.sp,
         lineHeight = 16.sp,
-        letterSpacing = 0.5.sp
-    )
-    */
+        letterSpacing = 0.15.sp
+    ),
+    titleLarge = TextStyle(
+        fontFamily = dangrekBold,
+        fontSize = 32.sp,
+    ),
+    titleMedium = TextStyle(
+        fontFamily = dangrekBold,
+        fontSize = 24.sp,
+    ),
+    titleSmall = TextStyle(
+        fontFamily = dangrekBold,
+        fontSize = 16.sp,
+    ),
+
 )
