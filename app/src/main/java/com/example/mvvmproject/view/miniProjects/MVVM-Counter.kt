@@ -7,7 +7,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -25,11 +25,11 @@ import com.example.mvvmproject.viewmodel.ViewModelPractice
 @Composable
 fun MainScreen(vm: ViewModelPractice = viewModel()) {
     var num by remember{
-        mutableStateOf(vm.count)
+        mutableIntStateOf(vm.count)
 
     }
     Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(text = "${num}")
+        Text(text = "$num")
         Button(onClick = { vm.incCount()
             num = vm.count
         }) {
