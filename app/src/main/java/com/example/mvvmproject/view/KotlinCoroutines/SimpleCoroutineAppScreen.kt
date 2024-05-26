@@ -33,7 +33,7 @@ fun CoroutineTimer(vm: CoroutineViewModel = viewModel()) {
             onValueChange = { countdownValue = it.toIntOrNull() ?: 0 },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             keyboardActions = KeyboardActions(onDone = {
-                vm.CoroutineTimer(countdownValue) // calls the coroutine logic
+                vm.coroutineTimer(countdownValue) // calls the coroutine logic
             }),
             singleLine = true
         )
