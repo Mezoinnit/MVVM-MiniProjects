@@ -7,7 +7,6 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.mvvmproject.ui.theme.MvvmProjectTheme
-import com.example.mvvmproject.view.KotlinCoroutines.CoroutineTimer
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -15,7 +14,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             MvvmProjectTheme {
-                CoroutineTimer()
+
             }
         }
     }
