@@ -1,4 +1,12 @@
 package com.example.mvvmproject.viewmodel
 
-class QouteViewModel {
+import androidx.lifecycle.ViewModel
+
+class QouteViewModel: ViewModel() {
+
+
+
+    private suspend fun quoteLogic(){
+
+    }
 }
