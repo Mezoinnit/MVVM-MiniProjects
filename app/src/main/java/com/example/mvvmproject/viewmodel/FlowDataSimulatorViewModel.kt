@@ -15,7 +15,7 @@ class FlowDataSimulatorViewModel : ViewModel() {
     val dataList = _dataName.asStateFlow()
 
     fun listName(listName:String) {
-        val currentList = _dataName.value.toMutableList()// Create a mutable copy of the list
+        val currentList = _dataName.value.toMutableList() // Create a mutable copy of the list
         currentList.add(DataSimulator(listName)) // Add the new value to the list
         _dataName.value = currentList // Update the _dataName variable with the new list
         Log.d("Item Updates: ", "Item Added")
