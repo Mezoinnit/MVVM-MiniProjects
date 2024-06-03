@@ -2,8 +2,8 @@ package com.example.mvvmproject.model
 
 data class QuoteData(val quote: String)
 
-fun quoteList(): MutableList<QuoteData> {
-    return mutableListOf(
+fun quoteList(): List<QuoteData> {
+    return listOf(
         QuoteData("The greatest glory in living lies not in never falling, but in rising every time we fall. -Nelson Mandela"),
         QuoteData("The way to get started is to quit talking and begin doing. -Walt Disney"),
         QuoteData("Your time is limited, so don't waste it living someone else's life. Don't be trapped by dogma – which is living with the results of other people's thinking. -Steve Jobs"),
