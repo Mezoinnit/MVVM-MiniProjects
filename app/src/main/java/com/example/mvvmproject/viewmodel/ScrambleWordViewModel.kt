@@ -18,7 +18,6 @@ class ScrambleWordViewModel : ViewModel() {
     fun scrambleLogic() {
         viewModelScope.launch(Dispatchers.IO) {
             val word = getScrambleWord()
-            val shuffled =
             withContext(Dispatchers.Main){
                 _scrambledWord.value = word
             }
