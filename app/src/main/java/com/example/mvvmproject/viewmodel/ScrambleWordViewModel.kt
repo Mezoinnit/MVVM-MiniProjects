@@ -3,9 +3,11 @@ package com.example.mvvmproject.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mvvmproject.model.allWords
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class ScrambleWordViewModel : ViewModel() {
 
@@ -13,13 +15,18 @@ class ScrambleWordViewModel : ViewModel() {
 
     val word = _scrambledWord.asStateFlow()
 
-    fun ScrambleLogic() {
-        viewModelScope.launch {
+    fun scrambleLogic() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val word = getScrambleWord()
+            val shuffled =
+            withContext(Dispatchers.Main){
+                _scrambledWord.value = word
+            }
 
         }
     }
 
-    suspend fun getscrambleWord(): String {
+    private suspend fun getScrambleWord(): String {
         return allWords.random()
     }
 }
