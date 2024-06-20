@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
@@ -14,6 +15,10 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -26,8 +31,14 @@ import com.example.mvvmproject.ui.theme.MvvmProjectTheme
 import com.example.mvvmproject.viewmodel.ScrambleWordViewModel
 
 @Composable
-fun ScrambleWordScreen(vm:ScrambleWordViewModel = viewModel()) {
+fun ScrambleWordScreen(vm: ScrambleWordViewModel = viewModel()) {
     val scrambleWord = vm.word.collectAsState()
+    val isCorrect = vm.gWord.value
+
+    var text by remember {
+        mutableStateOf("")
+    }
+
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -43,17 +54,18 @@ fun ScrambleWordScreen(vm:ScrambleWordViewModel = viewModel()) {
                 verticalArrangement = Arrangement.Center,
                 modifier = Modifier.fillMaxSize()
             ) {
+
+
                 Text(
-                    text = scrambleWord.value,
-                    style = MaterialTheme.typography.bodyLarge.copy(
+                    text = scrambleWord.value, style = MaterialTheme.typography.bodyLarge.copy(
                         fontWeight = ExtraBold,
                         fontSize = 45.sp
                     ),
                     modifier = Modifier.padding(bottom = 50.dp)
                 )
                 OutlinedTextField(
-                    value = "gWrod",
-                    onValueChange = { "gWord" },
+                    value = text,
+                    onValueChange = { text = it },
                     modifier = Modifier
                         .border(
                             2.dp,
@@ -62,15 +74,29 @@ fun ScrambleWordScreen(vm:ScrambleWordViewModel = viewModel()) {
                         )
                         .clip(
                             RoundedCornerShape(100)
-                        )
+                        ),
+                    singleLine = true,
+                    keyboardActions = KeyboardActions(onDone = {vm.scrambleLogic()})
                 )
-                Button(
-                    onClick = { vm.scrambleLogic() },
-                    modifier = Modifier
-                        .padding(top = 25.dp)
-                        .size(150.dp, 55.dp)
-                ) {
-                    Text(text = "Guess!", style = MaterialTheme.typography.bodyLarge)
+                Column(modifier = Modifier.padding(16.dp)){
+                    Button(
+                        onClick = { if (text == isCorrect) {
+                            vm.scrambleLogic()
+                        }
+                                                         },
+                        modifier = Modifier
+                            .padding(bottom = 16.dp)
+                            .size(150.dp, 55.dp)
+                    ) {
+                        Text(text = "Guess!", style = MaterialTheme.typography.bodyLarge)
+                    }
+                    Button(
+                        onClick = { vm.scrambleLogic() },
+                        modifier = Modifier
+                            .size(150.dp, 55.dp)
+                    ) {
+                        Text(text = "New Word!", style = MaterialTheme.typography.bodyLarge)
+                    }
                 }
             }
         }
