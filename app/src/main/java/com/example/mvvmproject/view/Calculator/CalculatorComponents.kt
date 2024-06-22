@@ -1,5 +1,6 @@
 package com.example.mvvmproject.view.Calculator
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -15,30 +16,28 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material.icons.materialIcon
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.BitmapPainter
-import androidx.compose.ui.graphics.vector.VectorPainter
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.mvvmproject.model.Calculator
 import com.example.mvvmproject.ui.theme.MvvmProjectTheme
 import com.example.mvvmproject.viewmodel.CalculatorViewModel
 
+@SuppressLint("StateFlowValueCalledInComposition")
 @Composable
 fun TopAppBar(vm: CalculatorViewModel = viewModel()) {
-    val value = vm.calculator
+    val value = vm.calculator.collectAsState()
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -49,7 +48,7 @@ fun TopAppBar(vm: CalculatorViewModel = viewModel()) {
         verticalAlignment = Alignment.Bottom
     ) {
         Text(
-            text = value.toString(),
+            text = value.value,
             style = MaterialTheme.typography.bodyLarge.copy(
                 fontSize = 60.sp,
                 fontWeight = FontWeight.Bold
@@ -61,12 +60,12 @@ fun TopAppBar(vm: CalculatorViewModel = viewModel()) {
 }
 
 @Composable
-fun CalculatorLayout() {
-        Column(modifier = Modifier
-            .fillMaxSize()
-            .padding(horizontal = 12.dp)
-            .navigationBarsPadding()
-            .statusBarsPadding(),
+fun CalculatorLayout(vm:CalculatorViewModel = viewModel()) {
+    Column(modifier = Modifier
+        .fillMaxSize()
+        .padding(horizontal = 12.dp)
+        .navigationBarsPadding()
+        .statusBarsPadding(),
             verticalArrangement = Arrangement.Bottom,
             horizontalAlignment = Alignment.CenterHorizontally) {
             Row {
@@ -206,7 +205,7 @@ fun CalculatorLayout() {
                     Icon(imageVector = Icons.Default.Delete, contentDescription = null)
                 }
                 Button(
-                    onClick = { /*TODO*/ }, modifier = Modifier
+                    onClick = { vm.calculate() }, modifier = Modifier
                         .size(90.dp)
                         .padding(4.dp)
                 ) {
@@ -222,6 +221,7 @@ fun CalculatorLayout() {
 @Composable
 fun TopBarPreview() {
     MvvmProjectTheme {
+        TopAppBar()
         CalculatorLayout()
     }
 }
